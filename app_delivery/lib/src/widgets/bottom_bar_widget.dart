@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:app_delivery/src/widgets/helpers/bottom_bar_clipper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomBarWidget extends StatelessWidget {
@@ -22,7 +19,7 @@ class BottomBarWidget extends StatelessWidget {
                 clipper: BottomBarClipper(),
                 child: ClipRect(
                   child: Container(
-                    height: 73,
+                    height: 60,
                     color: const Color(0xffE82D44),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -58,12 +55,12 @@ class BottomBarWidget extends StatelessWidget {
             ),
             Positioned(
               bottom: 30,
-              height: 94,
-              width: 94,
+              height: 80,
+              width: 80,
               child: Container(
                 margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: const Color(0xffE82D44)),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: Color(0xffE82D44)),
                 child: Center(
                   child: IconButton(
                     onPressed: () {},
