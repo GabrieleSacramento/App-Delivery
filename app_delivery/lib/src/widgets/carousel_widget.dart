@@ -1,183 +1,151 @@
 import 'package:flutter/material.dart';
 
-class CarouselWidget extends StatelessWidget {
-  const CarouselWidget({super.key});
+class CarouselListWidget extends StatefulWidget {
+  final List<Game> games;
+
+  const CarouselListWidget({Key? key, required this.games}) : super(key: key);
+
+  @override
+  State<CarouselListWidget> createState() => _CarouselListWidgetState();
+}
+
+class _CarouselListWidgetState extends State<CarouselListWidget> {
+  late PageController _pageController;
+
+  ValueNotifier<double> scrollOffSet = ValueNotifier(1);
+
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: 0, viewportFraction: .62);
+    _pageController.addListener(() {
+      scrollOffSet.value = _pageController.page!;
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 20, right: 20, left: 40, bottom: 20),
-              child: Stack(
-                children: [
-                  Container(
+    return SizedBox(
+      height: 250,
+      child: PageView.builder(
+        itemCount: widget.games.length,
+        physics: const BouncingScrollPhysics(),
+        controller: _pageController,
+        itemBuilder: (context, index) {
+          return ValueListenableBuilder(
+              valueListenable: scrollOffSet,
+              builder: (context, value, child) {
+                final game = widget.games[index];
+                return Align(
+                  child: Container(
+                    height: 250,
+                    width: 170,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(16),
                       color: Colors.white,
                     ),
-                    width: 137,
-                    height: 186,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 50, left: 16),
-                      child: Column(
-                        children: [
-                          const Text('Marmitex - frango assado'),
-                          Row(
+                    margin: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            clipBehavior: Clip.hardEdge,
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Image.asset(
+                              game.assetImage,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 14),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            game.name,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 16),
+                          ),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 24, right: 24, bottom: 16),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.only(top: 16),
-                                child: Text(
-                                  '25 min    |',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                            children: [
+                              Text(
+                                game.time,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 16, right: 16),
-                                child: Text(
-                                  '1,2 km',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                              Text(
+                                game.separation,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              Text(
+                                game.distance,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
                                 ),
                               ),
                             ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 16, right: 16),
+                        ),
+                        const SizedBox(height: 4),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Center(
                             child: Text(
-                              "R\$12,00",
-                              style: TextStyle(
+                              game.value,
+                              style: const TextStyle(
                                 color: Color(0xffE82D44),
-                                fontSize: 20,
+                                fontSize: 24,
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(right: 50, left: 40, bottom: 120),
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.only(right: 100),
-                      height: MediaQuery.of(context).size.height / 18,
-                      width: MediaQuery.of(context).size.height / 18,
-                      decoration: BoxDecoration(
-                        image: const DecorationImage(
-                          image: AssetImage("assets/header/marmita.png"),
-                          fit: BoxFit.cover,
                         ),
-                        color: Colors.yellow,
-                        borderRadius: BorderRadius.circular(150),
-                      ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 20, right: 20, left: 20, bottom: 20),
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                    ),
-                    width: 137,
-                    height: 186,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 50, left: 16),
-                      child: Column(
-                        children: [
-                          const Text('Marmitex - frango assado'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.only(top: 16),
-                                child: Text(
-                                  '25 min    |',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 16, right: 16),
-                                child: Text(
-                                  '1,2 km',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 16, right: 16),
-                            child: Text(
-                              "R\$12,00",
-                              style: TextStyle(
-                                color: Color(0xffE82D44),
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(right: 50, left: 40, bottom: 120),
-                    child: Center(
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.only(right: 100),
-                        height: MediaQuery.of(context).size.height / 18,
-                        width: MediaQuery.of(context).size.height / 18,
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                            image: AssetImage("assets/header/marmita.png"),
-                            fit: BoxFit.cover,
-                          ),
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.circular(150),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
+                );
+              });
+        },
+      ),
     );
   }
+}
+
+class Game {
+  final String name;
+  final String assetImage;
+  final String time;
+  final String distance;
+  final String separation;
+  final String value;
+
+  Game({
+    required this.name,
+    required this.assetImage,
+    required this.time,
+    required this.distance,
+    required this.separation,
+    required this.value,
+  });
 }

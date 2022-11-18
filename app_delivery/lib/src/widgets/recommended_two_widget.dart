@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RecommendedWidget extends StatelessWidget {
-  const RecommendedWidget({super.key});
+class RecommendedTwoWidget extends StatelessWidget {
+  const RecommendedTwoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class RecommendedWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Image.asset(
-                          'assets/header/frango.png',
+                          'assets/header/carne.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -42,14 +42,14 @@ class RecommendedWidget extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 7),
                   ),
-                  const Text('Marmitex - frango assado'),
+                  const Text('Marmitex - carne guizada'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Padding(
                         padding: EdgeInsets.only(top: 5),
                         child: Text(
-                          '25 min   |  ',
+                          '15 min   |  ',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 12,
@@ -60,7 +60,7 @@ class RecommendedWidget extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 5, right: 16),
                         child: Text(
-                          '1,2 km',
+                          '0,8 km',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 12,
@@ -73,7 +73,7 @@ class RecommendedWidget extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 5, right: 16),
                     child: Text(
-                      "R\$12,00",
+                      "R\$14,00",
                       style: TextStyle(
                         color: Color(0xffE82D44),
                         fontSize: 20,
